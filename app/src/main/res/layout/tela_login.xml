@@ -94,17 +94,19 @@
 
     <Button
         android:id="@+id/EsqSenha"
-        android:layout_width="186dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:foreground="@drawable/esqsenha"
-        android:textColorLink="#00FFFFFF"
+        android:layout_width="267dp"
+        android:layout_height="61dp"
+        android:backgroundTint="#151111"
+        android:fontFamily="@font/inter_medium"
+        android:text="LOGIN"
+        android:textColorHighlight="#0C0B0B"
+        android:textColorLink="#151414"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword5"
-        app:layout_constraintVertical_bias="0.104"
+        app:layout_constraintVertical_bias="0.384"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
