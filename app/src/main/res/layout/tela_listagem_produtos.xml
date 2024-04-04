@@ -5,29 +5,41 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+    <ImageView
+        android:id="@+id/imagem_produto"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nomeProduto" />
+
     <TextView
         android:id="@+id/nomeProduto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/descricaoProduto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nomeProduto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
+        app:layout_constraintTop_toBottomOf="@id/nomeProduto" />
 
     <TextView
         android:id="@+id/valorProduto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/descricaoProduto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
+        app:layout_constraintTop_toBottomOf="@id/descricaoProduto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
