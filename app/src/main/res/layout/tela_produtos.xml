@@ -18,15 +18,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.742" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="174dp"
-        android:layout_height="137dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewProdutos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_sem_fundo" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search"
+        android:layout_width="414dp"
+        android:layout_height="78dp"
+        android:clickable="true"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="35dp"
+            android:layout_height="27dp"
+            app:srcCompat="@android:drawable/ic_menu_search"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="19dp" />
+
+        <EditText
+            android:id="@+id/pesquisar"
+            android:layout_width="208dp"
+            android:layout_height="41dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Pesquisar"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="12dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

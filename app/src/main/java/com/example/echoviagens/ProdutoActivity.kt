@@ -42,7 +42,7 @@ class ProdutoActivity : AppCompatActivity() {
 
         // Configuração do Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://e19a47a5-91ba-4e68-9085-8dbf624cd7e8-00-1wr84z28oyvko.spock.replit.dev/")
+            .baseUrl("https://8a8c46e8-b44f-440f-b11c-99617c1016e3-00-3vy1c5bsq5bs9.riker.repl.co/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
