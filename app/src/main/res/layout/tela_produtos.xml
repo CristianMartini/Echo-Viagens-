@@ -26,14 +26,6 @@
         tools:layout_editor_absoluteX="-2dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="35dp"
-            android:layout_height="27dp"
-            app:srcCompat="@android:drawable/ic_menu_search"
-            tools:layout_editor_absoluteX="177dp"
-            tools:layout_editor_absoluteY="19dp" />
-
         <EditText
             android:id="@+id/pesquisar"
             android:layout_width="208dp"
@@ -41,8 +33,8 @@
             android:ems="10"
             android:inputType="text"
             android:text="Pesquisar"
-            tools:layout_editor_absoluteX="15dp"
-            tools:layout_editor_absoluteY="12dp" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
