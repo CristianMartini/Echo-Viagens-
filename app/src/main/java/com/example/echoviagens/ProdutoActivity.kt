@@ -3,7 +3,7 @@ package com.example.echoviagens
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,10 +23,7 @@ class ProdutoActivity : AppCompatActivity() {
         setContentView(R.layout.tela_produtos)
 
         recyclerView = findViewById(R.id.recyclerViewProdutos)
-
-        // Configurando o GridLayoutManager com 2 colunas
-        val layoutManager = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         // Configuração do Logging Interceptor
         val logging = HttpLoggingInterceptor { message ->
@@ -45,7 +42,7 @@ class ProdutoActivity : AppCompatActivity() {
 
         // Configuração do Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://e19a47a5-91ba-4e68-9085-8dbf624cd7e8-00-1wr84z28oyvko.spock.replit.dev/")
+            .baseUrl("https://c098da9a-52e9-4f8f-86f3-afa669f7809e-00-1ilof7xonmtbu.worf.repl.co/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -69,3 +66,4 @@ class ProdutoActivity : AppCompatActivity() {
         })
     }
 }
+
