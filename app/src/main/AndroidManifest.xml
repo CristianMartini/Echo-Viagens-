@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ProdutoActivity"
             android:exported="false"/>
         <activity
             android:name=".ProdutoDetalhes"
             android:exported="false" />
         <activity
-            android:name=".ProdutoActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
