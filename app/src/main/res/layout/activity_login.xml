@@ -5,22 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
-        android:autoSizeTextType="none"
-        android:autoText="false"
-        android:foreground="@drawable/btnvoltar"
-        android:textFontWeight="50"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
     <TextView
         android:id="@+id/boasVindas"
         android:layout_width="wrap_content"
@@ -32,10 +16,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnVoltar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101" />
 
     <TextView
         android:id="@+id/btnTxt2"
@@ -48,22 +32,22 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintHorizontal_bias="0.395"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boasVindas"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imgInicio"
-        android:layout_width="1249dp"
-        android:layout_height="746dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="969dp"
+        android:layout_height="752dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintHorizontal_bias="0.596"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnTxt2"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.256"
         app:srcCompat="@drawable/img_inicio" />
 
     <EditText
@@ -73,8 +57,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
+        android:hint="Insira o seu e-mail"
         android:inputType="textEmailAddress"
-        android:text="Insira o seu e-mail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.358"
@@ -89,8 +73,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
+        android:hint="Insira a sua senha"
         android:inputType="textPassword"
-        android:text="Insira a sua senha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.363"
@@ -117,16 +101,17 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="333dp"
-        android:layout_height="319dp"
+        android:layout_width="598dp"
+        android:layout_height="408dp"
         android:layout_marginTop="132dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toTopOf="@+id/txtEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.38"
         app:srcCompat="@drawable/logo_sem_fundo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
