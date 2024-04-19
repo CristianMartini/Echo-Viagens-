@@ -54,7 +54,6 @@
                     android:layout_marginTop="8dp"
                     android:maxLines="1"
                     android:text="descriçao"
-                    android:maxLines="1"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
