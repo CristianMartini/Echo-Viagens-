@@ -1,5 +1,6 @@
 package com.example.echoviagens
 
+
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -44,8 +45,12 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         viewHolder.btnComprar.setOnClickListener {
             val intent = Intent(viewHolder.itemView.context, ProdutoDetalhes::class.java)
+            intent.putExtra("ID_PRODUTO", produto.produtoId)
             intent.putExtra("NOME_PRODUTO", produto.produtoNome)
+            intent.putExtra("IMAGEM_PRODUTO", produto.imagemUrl)
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+            intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
+
             viewHolder.itemView.context.startActivity(intent)
         }
     }

@@ -11,5 +11,6 @@ data class Produto(
     @SerializedName("PRODUTO_DESCONTO") val produtoDesconto: String,
     @SerializedName("CATEGORIA_ID") val categoriaId: Int,
     @SerializedName("PRODUTO_ATIVO") val produtoAtivo: Int,
-    @SerializedName("IMAGEM_URL") val imagemUrl: String?
+    @SerializedName("IMAGEM_URL") val imagemUrl: String?,
+    @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int
 )

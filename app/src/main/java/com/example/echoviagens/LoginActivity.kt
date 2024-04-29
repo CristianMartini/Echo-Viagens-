@@ -1,5 +1,6 @@
 package com.example.echoviagens
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,12 +12,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 import android.util.Log
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity<SharedPreferences> : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -29,12 +29,14 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.editTextTextPassword5)
         val loginButton: Button = findViewById(R.id.btnLogin)
 
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+
         loginButton.setOnClickListener {
-            blockLogin()
+            blockLogin(sharedPreferences)
         }
     }
 
-    private fun blockLogin() {
+    private fun blockLogin(sharedPreferences: android.content.SharedPreferences) {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
@@ -54,6 +56,12 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
                     if (loginResponses.isNotEmpty()) {
+                        val userId = loginResponses[0].USUARIO_ID
+                        // Salvar o ID do usuário no SharedPreferences
+                        val editor = sharedPreferences.edit()
+                        editor.putInt("userId", userId)
+                        editor.apply()
+
                         val intent = Intent(this@LoginActivity, ProdutoActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -78,8 +86,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-
-
     }
 
     interface ApiService {
@@ -90,5 +96,3 @@ class LoginActivity : AppCompatActivity() {
         ): Call<List<LoginResponse>>
     }
 }
-
-
