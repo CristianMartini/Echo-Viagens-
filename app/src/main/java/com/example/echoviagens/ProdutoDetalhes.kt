@@ -1,5 +1,6 @@
 package com.example.echoviagens
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -52,11 +53,18 @@ class ProdutoDetalhes : AppCompatActivity() {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
         }
+        // Botão Carrinho
+        val btnCarrinho = findViewById<Button>(R.id.btnCarrinho)
+        btnCarrinho.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://225d40cd-849d-425b-a018-f737d39c85b1-00-3fewqqnpp4eyy.worf.replit.dev/")
+            .baseUrl("https://e12fee2b-97e1-4da1-8e95-f7aca08c0ffe-00-tfei85kuwe7y.picard.replit.dev/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 

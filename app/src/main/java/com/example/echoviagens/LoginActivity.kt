@@ -41,7 +41,7 @@ class LoginActivity<SharedPreferences> : AppCompatActivity() {
         val password = passwordEditText.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://71470dd5-14c8-4ec4-960e-a81bd29d91ad-00-sk7g2syvbseo.janeway.replit.dev/")
+            .baseUrl("https://fc785e2e-499f-48b1-aea1-dd10e069c099-00-14j9788ktdjj6.spock.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
