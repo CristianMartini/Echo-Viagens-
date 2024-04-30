@@ -72,14 +72,14 @@
         android:id="@+id/btnAdicionarAoCarrinho"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="104dp"
         android:background="#2C7D8C"
         android:text="Adicionar ao Carrinho"
         android:textAllCaps="false"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -100,5 +100,14 @@
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
         app:layout_constraintStart_toEndOf="@+id/txtQuantidadeDisponivelLabel" />
+    <Button
+        android:id="@+id/btnCarrinho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carrinho"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnAdicionarAoCarrinho"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
