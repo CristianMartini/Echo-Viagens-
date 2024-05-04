@@ -41,7 +41,7 @@ class CartActivity : AppCompatActivity() {
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://c0c74366-09d0-4c14-a004-0805ee76eefe-00-3p5n3xcfdp0te.janeway.replit.dev/")
+            .baseUrl("https://c0c74366-09d0-4c14-a004-0805ee76eefe-00-3p5n3xcfdp0te.janeway.repl.co/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
