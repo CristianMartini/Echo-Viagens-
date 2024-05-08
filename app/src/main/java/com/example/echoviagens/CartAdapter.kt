@@ -16,7 +16,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CartAdapter(private val items: MutableList<Produto>, private val context: Context,  private val userId: Int,private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter(private val items: MutableList<Produto>,
+                  private val context: Context,
+                  private val userId: Int,
+                  private val updateTotal: () -> Unit)
+    : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName: TextView = view.findViewById(R.id.productNameTextView)
@@ -34,7 +38,7 @@ class CartAdapter(private val items: MutableList<Produto>, private val context: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.productName.text = item.produtoNome
-        holder.productPrice.text = "R$${item.produtoPreco}"
+        holder.productPrice.text = String.format("R$%.2f", item.produtoPreco.toDouble())
         holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
         Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
@@ -57,17 +61,17 @@ class CartAdapter(private val items: MutableList<Produto>, private val context: 
                     items.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, items.size)
-                    updateTotal()
+                    updateTotal()  // Chamada da funçao para atualizar o total
+                    Toast.makeText(context, "Item deletado com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Failed to delete item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Falha ao deletar o item", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, "Error connecting to the server", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Erro ao conectar-se ao servidor", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
     override fun getItemCount() = items.size
 }
