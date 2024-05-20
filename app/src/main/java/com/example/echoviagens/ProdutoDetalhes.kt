@@ -52,6 +52,8 @@ class ProdutoDetalhes : AppCompatActivity() {
         btnAdicionarCarrinho.setOnClickListener {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
             adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
+
+
         }
         // Botão Carrinho
         val btnCarrinho = findViewById<Button>(R.id.btnCarrinho)

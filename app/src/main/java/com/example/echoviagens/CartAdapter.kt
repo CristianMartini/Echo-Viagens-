@@ -16,7 +16,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CartAdapter(private val items: MutableList<Produto>, private val context: Context,  private val userId: Int,private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter(private val items: MutableList<Produto>,
+                  private val context: Context,
+
+                  private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName: TextView = view.findViewById(R.id.productNameTextView)
@@ -34,40 +37,54 @@ class CartAdapter(private val items: MutableList<Produto>, private val context: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.productName.text = item.produtoNome
-        holder.productPrice.text = "R$${item.produtoPreco}"
+        holder.productPrice.text = item.produtoPreco?.let { String.format("R$%.2f", it.toDouble()) }
         holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
         Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
         holder.deleteButton.setOnClickListener {
-            removeItemFromCart(item, position, userId)
+            removeItemFromCart(item, position)
         }
     }
 
 
-    private fun removeItemFromCart(item: Produto, position: Int, userId: Int) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://0c476791-f6b8-4e72-9b10-7dd19105ff51-00-lzotvxs2yi9a.spock.replit.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
+    private fun removeItemFromCart(item: Produto, position: Int) {
+        val retrofit = getRetrofit()
         val api = retrofit.create(CartApiService::class.java)
-        api.deleteCartItem(item.produtoId, userId = userId).enqueue(object : Callback<Void> {
+
+        val sharedPreferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+
+
+        api.deleteCartItem(item.produtoId, userId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     items.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, items.size)
-                    updateTotal()
+                    updateTotal()  // Chamada da função para atualizar o total
+                    Toast.makeText(context, "Item deletado com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Failed to delete item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Falha ao deletar o item", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, "Error connecting to the server", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Erro ao conectar-se ao servidor", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
+
+    private fun getRetrofit(): Retrofit = Retrofit.Builder()
+        .baseUrl("https://c0c74366-09d0-4c14-a004-0805ee76eefe-00-3p5n3xcfdp0te.janeway.replit.dev/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
     override fun getItemCount() = items.size
 }
+
+
+
+
+

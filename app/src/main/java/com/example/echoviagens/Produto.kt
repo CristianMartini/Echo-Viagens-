@@ -1,8 +1,9 @@
 package com.example.echoviagens
-
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Produto(
     @SerializedName("PRODUTO_ID") val produtoId: Int,
     @SerializedName("PRODUTO_NOME") val produtoNome: String,
@@ -13,4 +14,4 @@ data class Produto(
     @SerializedName("PRODUTO_ATIVO") val produtoAtivo: Int,
     @SerializedName("IMAGEM_URL") val imagemUrl: String?,
     @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int
-)
+) : Parcelable
