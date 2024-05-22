@@ -2,7 +2,8 @@ package com.example.echoviagens
 
 
 
-import android.content.Context
+import Produto
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -15,21 +16,20 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
+
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import android.os.Parcelable
+
 
 class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        var totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
+        val totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
         val userId = intent.getIntExtra("USER", 0)
         val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
+
 
 
         findViewById<TextView>(R.id.totalValueText).text = totalValue.toString()
