@@ -1,7 +1,9 @@
 package com.example.echoviagens
 
+
 import Produto
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +18,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 class CartAdapter(private val items: MutableList<Produto>,
                   private val context: Context,
-
                   private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,33 +47,35 @@ class CartAdapter(private val items: MutableList<Produto>,
         }
     }
 
-
     private fun removeItemFromCart(item: Produto, position: Int) {
         val retrofit = getRetrofit()
         val api = retrofit.create(CartApiService::class.java)
-
         val sharedPreferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
 
+        val updateRequest = CartApiService.CartItemUpdateRequest(userId, item.produtoId, 0)
 
-        api.deleteCartItem(item.produtoId, userId).enqueue(object : Callback<Void> {
+        api.updateCartItemQuantity(updateRequest).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     items.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, items.size)
-                    updateTotal()  // Chamada da função para atualizar o total
-                    Toast.makeText(context, "Item deletado com sucesso", Toast.LENGTH_SHORT).show()
+                    updateTotal()
+                    Toast.makeText(context, "Item removido com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Falha ao deletar o item", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Falha ao atualizar o carrinho: ${response.errorBody()?.string()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, "Erro ao conectar-se ao servidor", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Erro de conexão: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
+
+
 
 
     private fun getRetrofit(): Retrofit = Retrofit.Builder()
@@ -81,11 +83,5 @@ class CartAdapter(private val items: MutableList<Produto>,
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-
     override fun getItemCount() = items.size
 }
-
-
-
-
-

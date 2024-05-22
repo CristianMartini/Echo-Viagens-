@@ -22,35 +22,34 @@ import retrofit2.http.POST
 
 
 class PaymentActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment)
 
-        val totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
-        val userId = intent.getIntExtra("USER", 0)
-        val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_payment)
 
+            val totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
+            val userId = intent.getIntExtra("USER", 0)
+            val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
 
+            findViewById<TextView>(R.id.totalValueText).text = totalValue.toString()
 
-        findViewById<TextView>(R.id.totalValueText).text = totalValue.toString()
+            val cardNumberInput: EditText = findViewById(R.id.cardNumberInput)
+            val cardExpirationInput: EditText = findViewById(R.id.cardExpirationInput)
+            val cardCVCInput: EditText = findViewById(R.id.cardCVCInput)
+            val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
 
+            finishPaymentButton.setOnClickListener {
+                //if (validateCardDetails(cardNumberInput.text.toString(), cardExpirationInput.text.toString(), cardCVCInput.text.toString())) {
 
-        val cardNumberInput: EditText = findViewById(R.id.cardNumberInput)
-        val cardExpirationInput: EditText = findViewById(R.id.cardExpirationInput)
-        val cardCVCInput: EditText = findViewById(R.id.cardCVCInput)
-        val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
-
-        finishPaymentButton.setOnClickListener {
-            //if (validateCardDetails(cardNumberInput.text.toString(), cardExpirationInput.text.toString(), cardCVCInput.text.toString())) {
-
-            enviaOrdem(userId, totalValue.toString().toDouble(), productList)
-            //} else {
-            //    Toast.makeText(this, "Detalhes do cartÃ£o invÃ¡lidos", Toast.LENGTH_LONG).show()
-            //}
+                enviaOrdem(userId, totalValue.toString().toDouble(), productList)
+                //} else {
+                //    Toast.makeText(this, "Detalhes do cartÃ£o invÃ¡lidos", Toast.LENGTH_LONG).show()
+                //}
+            }
         }
-    }
 
-    private fun enviaOrdem(userId: Int, total: Double, products: ArrayList<Produto>?) {
+
+            private fun enviaOrdem(userId: Int, total: Double, products: ArrayList<Produto>?) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://1581d293-c625-40fa-ad7c-ce06c073c520-00-2678n3rkx7kwv.riker.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())

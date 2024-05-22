@@ -1,9 +1,11 @@
 package com.example.echoviagens
 
+
 import Produto
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 class CartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var totalTextView: TextView
@@ -31,24 +34,19 @@ class CartActivity : AppCompatActivity() {
         totalTextView = findViewById(R.id.totalTextView)
         goToPaymentButton = findViewById(R.id.goToPaymentButton)
 
-        // Obtenha userId das preferências compartilhadas do login aqui
-        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
-        userId = sharedPreferences.getInt("userId", 0)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
+        userId = getSharedPreferences("Login", Context.MODE_PRIVATE).getInt("userId", 0)
         fetchCartItems()
 
         goToPaymentButton.setOnClickListener {
             val intent = Intent(this, PaymentActivity::class.java).apply {
-                putExtra("TOTAL", totalTextView.text.toString())
-                putExtra("USER", userId)  // O ID do usuÃ¡rio deve ser obtido de maneira segura, por exemplo, atravÃ©s de uma sessÃ£o de login com o Shared Preferences
+                putExtra("TOTAL", total.toString())
+                putExtra("USER", userId)
                 putParcelableArrayListExtra("PRODUCT_LIST", ArrayList(items))
             }
             startActivity(intent)
         }
-
     }
-
 
     private fun fetchCartItems() {
         val retrofit = Retrofit.Builder()
@@ -60,31 +58,33 @@ class CartActivity : AppCompatActivity() {
 
         api.getCartItems(userId = userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
-                if (response.isSuccessful) {
-                    items = response.body()?.toMutableList() ?: mutableListOf()
+                if (response.isSuccessful && response.body() != null) {
+                    items = response.body()!!.toMutableList()
                     setupAdapter()
-                    updateTotal()  // Atualiza o total apÃ³s carregar os itens
+                    updateTotal()
+                } else {
+                    // Lidar com a resposta não bem-sucedida, como logar o código de erro
+                    Log.e("API Error", "Response not successful. Code: ${response.code()}, Message: ${response.message()}")
                 }
-
-
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                // Tratamento de falhas
+                // Logar a falha da chamada
+                Log.e("API Failure", "Error fetching products: ${t.message}")
             }
         })
+
     }
+
     private fun setupAdapter() {
         cartAdapter = CartAdapter(items, this) { updateTotal() }
         recyclerView.adapter = cartAdapter
     }
 
     fun updateTotal() {
-        total = items.sumOf { it.produtoPreco.toDouble() * it.quantidadeDisponivel.toDouble()}
+        total = items.sumOf { it.produtoPreco.toDouble() * it.quantidadeDisponivel.toDouble() }
         runOnUiThread {
             totalTextView.text = "Total: R$${String.format("%.2f", total)}"
         }
     }
 }
-
-
