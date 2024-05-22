@@ -51,7 +51,7 @@ class PaymentActivity : AppCompatActivity() {
 
             private fun enviaOrdem(userId: Int, total: Double, products: ArrayList<Produto>?) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://1581d293-c625-40fa-ad7c-ce06c073c520-00-2678n3rkx7kwv.riker.replit.dev/")
+            .baseUrl("https://cf617ac0-fc23-464f-8634-0a8f673e759a-00-2eg33vcs7kse5.kirk.replit.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

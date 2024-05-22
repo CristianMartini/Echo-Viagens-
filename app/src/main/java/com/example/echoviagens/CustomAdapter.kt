@@ -40,7 +40,7 @@ class CustomAdapter(private var dataSet: List<Produto>) :
 
         viewHolder.nome.text = produto.produtoNome
         viewHolder.descricao.text = produto.produtoDesc
-        viewHolder.valor.text = produto.produtoPreco
+        viewHolder.valor.text = produto.produtoPreco.toString()
 
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
