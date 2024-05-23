@@ -6,6 +6,7 @@ import Produto
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -67,11 +68,13 @@ class PaymentActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Toast.makeText(this@PaymentActivity, "Erro ao realizar pedido", Toast.LENGTH_LONG).show()
+                    Log.e("PaymentActivity", "Erro: ${response.errorBody()?.string()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseCompra>, t: Throwable) {
                 Toast.makeText(this@PaymentActivity, "Falha na conexÃ£o", Toast.LENGTH_LONG).show()
+                Log.e("PaymentActivity", "Falha na conexão", t)
             }
         })
     }

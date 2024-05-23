@@ -50,6 +50,7 @@ class CartAdapter(private val items: MutableList<Produto>,
     private fun removeItemFromCart(item: Produto, position: Int) {
         val retrofit = getRetrofit()
         val api = retrofit.create(CartApiService::class.java)
+
         val sharedPreferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
 
@@ -73,8 +74,6 @@ class CartAdapter(private val items: MutableList<Produto>,
             }
         })
     }
-
-
 
 
 

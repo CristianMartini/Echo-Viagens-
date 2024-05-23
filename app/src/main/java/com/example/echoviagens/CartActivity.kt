@@ -56,6 +56,9 @@ class CartActivity : AppCompatActivity() {
 
         val api = retrofit.create(CartApiService::class.java)
 
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", 0)
+        
         api.getCartItems(userId = userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful && response.body() != null) {
