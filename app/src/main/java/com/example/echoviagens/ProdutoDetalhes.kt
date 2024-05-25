@@ -1,4 +1,8 @@
 package com.example.echoviagens
+
+
+
+
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +22,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-
 class ProdutoDetalhes : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,36 +29,54 @@ class ProdutoDetalhes : AppCompatActivity() {
         val nomeProduto = intent.getStringExtra("NOME_PRODUTO")
         val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO")
         val imagemProduto = intent.getStringExtra("IMAGEM_PRODUTO")
-
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
         val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
 
-
-        // Carregar imagem usando Glide
         Glide.with(this)
             .load(imagemProduto)
-            .placeholder(R.drawable.ic_launcher_background) // Imagem de placeholder enquanto carrega
-            .error(com.google.android.material.R.drawable.mtrl_ic_error) // Imagem de erro, caso ocorra
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(com.google.android.material.R.drawable.mtrl_ic_error)
             .into(findViewById<ImageView>(R.id.imagem_produto))
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
         findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
 
-
         val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
-        val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
+        editTextQuantidade.setText("0")  // Set initial quantity to 0
 
+        val btnIncrease = findViewById<Button>(R.id.btnIncrease)
+        val btnDecrease = findViewById<Button>(R.id.btnDecrease)
+
+        btnIncrease.setOnClickListener {
+            var quantidade = editTextQuantidade.text.toString().toInt()
+            if (quantidade < quantidadeDisponivel) {
+                quantidade++
+                editTextQuantidade.setText(quantidade.toString())
+            }
+        }
+
+        btnDecrease.setOnClickListener {
+            var quantidade = editTextQuantidade.text.toString().toInt()
+            if (quantidade > 0) {
+                quantidade--
+                editTextQuantidade.setText(quantidade.toString())
+            }
+        }
+
+        val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
 
         btnAdicionarCarrinho.setOnClickListener {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0
-            adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
-
-
+            if (quantidadeDesejada > 0 && quantidadeDesejada <= quantidadeDisponivel) {
+                adicionarAoCarrinho(userId, produtoId, quantidadeDesejada)
+            } else {
+                Toast.makeText(this, "Quantidade inválida.", Toast.LENGTH_SHORT).show()
+            }
         }
-        // Botão Carrinho
+
         val btnCarrinho = findViewById<Button>(R.id.btnCarrinho)
         btnCarrinho.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
@@ -74,10 +95,10 @@ class ProdutoDetalhes : AppCompatActivity() {
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object :
             Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(this@ProdutoDetalhes, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful && response.body() == "Sucesso!") {
+                    Toast.makeText(this@ProdutoDetalhes, "Adicionado com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@ProdutoDetalhes, "Resposta não bem-sucedida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProdutoDetalhes, "Falha ao adicionar: ${response.body()}", Toast.LENGTH_LONG).show()
                 }
             }
 
