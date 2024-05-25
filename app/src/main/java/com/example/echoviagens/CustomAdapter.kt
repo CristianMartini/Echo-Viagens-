@@ -1,6 +1,7 @@
 package com.example.echoviagens
 
 
+import Produto
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CustomAdapter(private val dataSet: List<Produto>) :
+class CustomAdapter(private var dataSet: List<Produto>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
+    fun updateData(newData: List<Produto>) {
+        dataSet = newData
+        notifyDataSetChanged()  // Notifica o RecyclerView que os dados foram atualizados
+    }
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
         val descricao: TextView = view.findViewById(R.id.descricaoProduto)
@@ -35,7 +40,7 @@ class CustomAdapter(private val dataSet: List<Produto>) :
 
         viewHolder.nome.text = produto.produtoNome
         viewHolder.descricao.text = produto.produtoDesc
-        viewHolder.valor.text = produto.produtoPreco
+        viewHolder.valor.text = produto.produtoPreco.toString()
 
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
