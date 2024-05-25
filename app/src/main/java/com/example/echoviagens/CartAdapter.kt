@@ -78,7 +78,7 @@ class CartAdapter(private val items: MutableList<Produto>,
 
 
     private fun getRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://c0c74366-09d0-4c14-a004-0805ee76eefe-00-3p5n3xcfdp0te.janeway.replit.dev/")
+        .baseUrl("https://16b33afa-15e5-4117-8d4a-f602c22a619b-00-2sdbx4eltghf5.worf.replit.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
