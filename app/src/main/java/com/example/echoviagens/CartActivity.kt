@@ -1,7 +1,6 @@
 package com.example.echoviagens
 
 
-import Produto
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle

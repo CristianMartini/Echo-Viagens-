@@ -2,7 +2,6 @@ package com.example.echoviagens
 
 
 
-import Produto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
