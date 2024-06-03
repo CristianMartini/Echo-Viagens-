@@ -38,12 +38,17 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 performLogin(email, password, sharedPreferences)
             } else {
-                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    private fun performLogin(email: String, password: String, sharedPreferences: android.content.SharedPreferences) {
+    private fun performLogin(
+        email: String,
+        password: String,
+        sharedPreferences: android.content.SharedPreferences
+    ) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://fc785e2e-499f-48b1-aea1-dd10e069c099-00-14j9788ktdjj6.spock.repl.co/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -53,18 +58,34 @@ class LoginActivity : AppCompatActivity() {
         val call = apiService.login(email, password)
 
         call.enqueue(object : Callback<List<LoginResponse>> {
-            override fun onResponse(call: Call<List<LoginResponse>>, response: Response<List<LoginResponse>>) {
+            override fun onResponse(
+                call: Call<List<LoginResponse>>,
+                response: Response<List<LoginResponse>>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
                     if (loginResponses.isNotEmpty()) {
-                        val userId = loginResponses[0].USUARIO_ID
-                        sharedPreferences.edit().putInt("userId", userId).apply()
+                        val user = loginResponses[0]
+                        val userId = user.USUARIO_ID
+                        val userName =
+                            user.USUARIO_NOME  // Assume que o nome do usuário está sendo enviado na resposta
 
+                        // Salvando o ID e o nome do usuário nas SharedPreferences
+                        sharedPreferences.edit()
+                            .putInt("userId", userId)
+                            .putString("userName", userName)
+                            .apply()
+
+                        // Inicia a próxima atividade após o login bem-sucedido
                         val intent = Intent(this@LoginActivity, ProdutoActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Invalid username or password",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 } else {
                     Log.e("LoginActivity", "Login failed: HTTP error code: " + response.code())
@@ -74,7 +95,8 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<LoginResponse>>, t: Throwable) {
                 Log.e("LoginActivity", "onFailure: " + t.message)
-                Toast.makeText(this@LoginActivity, "Login error: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LoginActivity, "Login error: ${t.message}", Toast.LENGTH_LONG)
+                    .show()
             }
         })
     }
@@ -87,4 +109,3 @@ class LoginActivity : AppCompatActivity() {
         ): Call<List<LoginResponse>>
     }
 }
-

@@ -1,6 +1,9 @@
 package com.example.echoviagens
+
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,16 +21,24 @@ class ProdutoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomAdapter
     private lateinit var searchView: SearchView
+    private lateinit var userNameTextView: TextView
     private var allProducts: List<Produto> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tela_produtos)
+        setContentView(R.layout.layout_produto_video)
 
         recyclerView = findViewById(R.id.recyclerViewProdutos)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = CustomAdapter(allProducts)  // Inicialize o adapter com uma lista vazia
         recyclerView.adapter = adapter
+
+        // Carregando o nome do usuário das SharedPreferences
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userName = sharedPreferences.getString("userName", "Usuário Desconhecido")  // Substitua "Usuário Desconhecido" pelo texto que preferir
+
+        userNameTextView = findViewById(R.id.textView2) // Supondo que textView2 é onde o nome do usuário será exibido
+        userNameTextView.text = userName
 
         searchView = findViewById(R.id.searchView)
 
@@ -65,7 +76,6 @@ class ProdutoActivity : AppCompatActivity() {
                 return true
             }
         })
-
     }
 
     private fun fetchAllProducts(apiService: ApiService) {
