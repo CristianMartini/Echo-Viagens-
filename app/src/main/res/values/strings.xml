@@ -5,5 +5,11 @@
     <string name="cvc">CVC</string>
     <string name="finish_payment">Finalizar Pagamento</string>
     <string name="total_value">Valor Total: $0.00</string>
+    <string name="desc_top_banner">Banner mostrando ofertas de viagens</string>
+    <string name="banner_text">Viagens com até 50% de Desconto!</string>
+    <string name="welcome_message">Bem Vindo</string>
+    <string name="search_trips">Procurar viagens ...</string>
+    <string name="show_more">Mostrar mais</string>
+    <string name="popular">Mais Populares</string>
 
 </resources>
