@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.echoviagens.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +35,7 @@ class ProdutoDetalhes : AppCompatActivity() {
             .load(imagemProduto)
             .placeholder(R.drawable.ic_launcher_background)
             .error(com.google.android.material.R.drawable.mtrl_ic_error)
-            .into(findViewById<ImageView>(R.id.imagem_produto))
+            .into(findViewById<ImageView>(R.id.star))
 
         findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
         findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto

@@ -25,7 +25,7 @@
             <!-- Media -->
 
             <ImageView
-                android:id="@+id/imagem_produto"
+                android:id="@+id/star"
                 android:layout_width="340dp"
                 android:layout_height="171dp"
                 android:scaleType="centerCrop"

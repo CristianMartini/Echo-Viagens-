@@ -20,15 +20,16 @@ class CustomAdapter(private var dataSet: List<Produto>) :
     }
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nome: TextView = view.findViewById(R.id.nomeProduto)
-        val descricao: TextView = view.findViewById(R.id.descricaoProduto)
+
         val valor: TextView = view.findViewById(R.id.valorProduto)
         val imagem: ImageView = view.findViewById(R.id.imagem_produto)
+
         val btnComprar: Button = view.findViewById(R.id.btn_Comprar)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.tela_listagem_produto, viewGroup, false)
+            .inflate(R.layout.produto_recyclerview, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -38,13 +39,12 @@ class CustomAdapter(private var dataSet: List<Produto>) :
         val produto = dataSet[position]
 
         viewHolder.nome.text = produto.produtoNome
-        viewHolder.descricao.text = produto.produtoDesc
-        viewHolder.valor.text = produto.produtoPreco.toString()
+
+        viewHolder.valor.text = ("R$" + produto.produtoPreco.toString());
 
         Glide.with(viewHolder.itemView.context)
             .load(produto.imagemUrl)
             .placeholder(R.drawable.ic_launcher_background) // placeholder
-            .error(com.google.android.material.R.drawable.mtrl_ic_error) // indica erro
             .into(viewHolder.imagem)
 
         viewHolder.btnComprar.setOnClickListener {

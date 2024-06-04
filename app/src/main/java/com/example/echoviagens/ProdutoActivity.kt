@@ -1,6 +1,11 @@
 package com.example.echoviagens
+
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,18 +23,38 @@ class ProdutoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomAdapter
     private lateinit var searchView: SearchView
+    private lateinit var userNameTextView: TextView
     private var allProducts: List<Produto> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tela_produtos)
+        setContentView(R.layout.layout_produto_video)  // Certifique-se de que o nome do layout está correto
 
         recyclerView = findViewById(R.id.recyclerViewProdutos)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = CustomAdapter(allProducts)  // Inicialize o adapter com uma lista vazia
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        adapter = CustomAdapter(allProducts)
         recyclerView.adapter = adapter
 
+        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
+        val userName = sharedPreferences.getString("userName", "Usuário Desconhecido")
+
+        userNameTextView = findViewById(R.id.textView2)
+        userNameTextView.text = userName
+
         searchView = findViewById(R.id.searchView)
+
+        val goToHome = findViewById<LinearLayout>(R.id.goToHome)
+        val goToCart = findViewById<LinearLayout>(R.id.goToCart)
+
+        goToHome.setOnClickListener {
+            val homeIntent = Intent(this, ProdutoActivity::class.java)
+            startActivity(homeIntent)
+        }
+
+        goToCart.setOnClickListener {
+            val cartIntent = Intent(this, CartActivity::class.java)
+            startActivity(cartIntent)
+        }
 
         val logging = HttpLoggingInterceptor { message -> Log.d("OkHttp", message) }
             .apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -65,7 +90,6 @@ class ProdutoActivity : AppCompatActivity() {
                 return true
             }
         })
-
     }
 
     private fun fetchAllProducts(apiService: ApiService) {
@@ -73,7 +97,7 @@ class ProdutoActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful) {
                     allProducts = response.body() ?: emptyList()
-                    adapter.updateData(allProducts)  // Atualize os dados no adapter existente em vez de criar um novo
+                    adapter.updateData(allProducts)
                 } else {
                     Log.e("API Error", "Response not successful. Code: ${response.code()}")
                 }

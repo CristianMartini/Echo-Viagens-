@@ -120,7 +120,7 @@ class PaymentActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseCompra>, response: Response<ResponseCompra>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@PaymentActivity, "Pedido realizado com sucesso", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@PaymentActivity, MainActivity::class.java)
+                    val intent = Intent(this@PaymentActivity, ProdutoActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
