@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/star"
+            android:id="@+id/imagem_produto"
             android:layout_width="16dp"
             android:layout_height="19dp"
             android:layout_marginEnd="12dp"
@@ -48,7 +48,7 @@
             android:text="5"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/star"
+            app:layout_constraintEnd_toStartOf="@+id/imagem_produto"
             app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
