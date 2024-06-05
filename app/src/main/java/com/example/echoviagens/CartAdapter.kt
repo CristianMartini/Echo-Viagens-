@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -23,15 +24,15 @@ class CartAdapter(private val items: MutableList<Produto>,
                   private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productName: TextView = view.findViewById(R.id.productNameTextView)
-        val productPrice: TextView = view.findViewById(R.id.productPriceTextView)
-        val productQuantity: TextView = view.findViewById(R.id.productQuantityTextView)
-        val productImage: ImageView = view.findViewById(R.id.productImageView)
-        val deleteButton: Button = view.findViewById(R.id.deleteButton)
+        val productName: TextView = view.findViewById(R.id.produtoNome)
+        val productPrice: TextView = view.findViewById(R.id.preçoTotal)
+        val productQuantity: TextView = view.findViewById(R.id.qtdProduto)
+        val productImage: ImageView = view.findViewById(R.id.produtoImagem)
+        val deleteButton: LinearLayout= view.findViewById(R.id.botao_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_detalhe_carrinho, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_carrinho, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,7 +40,7 @@ class CartAdapter(private val items: MutableList<Produto>,
         val item = items[position]
         holder.productName.text = item.produtoNome
         holder.productPrice.text = item.produtoPreco?.let { String.format("R$%.2f", it.toDouble()) }
-        holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
+        holder.productQuantity.text = "${item.quantidadeDisponivel}"
         Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
         holder.deleteButton.setOnClickListener {

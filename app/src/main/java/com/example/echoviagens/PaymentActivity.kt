@@ -29,7 +29,7 @@ class PaymentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment)
+        setContentView(R.layout.pagamento)
 
         val sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
@@ -37,14 +37,12 @@ class PaymentActivity : AppCompatActivity() {
         val totalValue = intent.getStringExtra("TOTAL")?.toDoubleOrNull()
         val productList = intent.getParcelableArrayListExtra<Produto>("PRODUCT_LIST")
 
-        findViewById<TextView>(R.id.totalValueText).text = totalValue.toString()
+        findViewById<TextView>(R.id.totalPagamento).text = totalValue.toString()
 
-        val cardNumberInput: EditText = findViewById(R.id.cardNumberInput)
-        val cardExpirationInput: EditText = findViewById(R.id.cardExpirationInput)
-        val cardCVCInput: EditText = findViewById(R.id.cardCVCInput)
-        val finishPaymentButton: Button = findViewById(R.id.finishPaymentButton)
 
-        radioGroup = findViewById(R.id.addressRadioGroup)
+        val finishPaymentButton: Button = findViewById(R.id.btnFinalizarPayment)
+
+        radioGroup = findViewById(R.id.radioGroup)
 
         loadUserAddresses(userId)
 
@@ -55,7 +53,7 @@ class PaymentActivity : AppCompatActivity() {
                 val selectedAddressId = selectedRadioButton.tag.toString().toInt()
                 enviaOrdem(userId, totalValue.toString().toDouble(), productList, selectedAddressId)
             } else {
-                Toast.makeText(this, "Por favor, selecione um endereÃ§o", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Por favor, selecione um endereço", Toast.LENGTH_LONG).show()
             }
         }
     }

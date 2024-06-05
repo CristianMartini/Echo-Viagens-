@@ -211,7 +211,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/goToHome"
+                    android:id="@+id/goToHome2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -279,7 +279,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/goToCart"
+                    android:id="@+id/goToCart2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
