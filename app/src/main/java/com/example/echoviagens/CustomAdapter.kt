@@ -53,11 +53,14 @@ class CustomAdapter(private var dataSet: List<Produto>) :
             intent.putExtra("NOME_PRODUTO", produto.produtoNome)
             intent.putExtra("IMAGEM_PRODUTO", produto.imagemUrl)
             intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
+            intent.putExtra("PRODUTO_PRECO", String.format("%.2f", produto.produtoPreco))  // Garantindo que o preço é passado como String formatada
             intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
-
 
             viewHolder.itemView.context.startActivity(intent)
         }
+
+
+
     }
 
     override fun getItemCount() = dataSet.size

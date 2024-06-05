@@ -43,8 +43,8 @@ class ProdutoActivity : AppCompatActivity() {
 
         searchView = findViewById(R.id.searchView)
 
-        val goToHome = findViewById<LinearLayout>(R.id.goToHome)
-        val goToCart = findViewById<LinearLayout>(R.id.goToCart)
+        val goToHome = findViewById<LinearLayout>(R.id.goToHome2)
+        val goToCart = findViewById<LinearLayout>(R.id.goToCart2)
 
         goToHome.setOnClickListener {
             val homeIntent = Intent(this, ProdutoActivity::class.java)

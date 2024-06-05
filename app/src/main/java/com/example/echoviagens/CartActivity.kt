@@ -1,11 +1,10 @@
 package com.example.echoviagens
-
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +19,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var totalTextView: TextView
     private lateinit var goToPaymentButton: Button
+    private lateinit var goToHomeLayout: LinearLayout  // Alterado para LinearLayout
     private var total: Double = 0.0
     private lateinit var cartAdapter: CartAdapter
     private var items: MutableList<Produto> = mutableListOf()
@@ -27,11 +27,12 @@ class CartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
+        setContentView(R.layout.carrinho)
 
-        recyclerView = findViewById(R.id.cartRecyclerView)
-        totalTextView = findViewById(R.id.totalTextView)
-        goToPaymentButton = findViewById(R.id.goToPaymentButton)
+        recyclerView = findViewById(R.id.recyclerviewCarrinho)
+        totalTextView = findViewById(R.id.totalCarrinho)
+        goToPaymentButton = findViewById(R.id.btnPayment)
+        goToHomeLayout = findViewById(R.id.goToHome2) // Alterado para referenciar LinearLayout
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         userId = getSharedPreferences("Login", Context.MODE_PRIVATE).getInt("userId", 0)
@@ -45,6 +46,11 @@ class CartActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        goToHomeLayout.setOnClickListener {
+            val intent = Intent(this, ProdutoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchCartItems() {
@@ -55,9 +61,6 @@ class CartActivity : AppCompatActivity() {
 
         val api = retrofit.create(CartApiService::class.java)
 
-        val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getInt("userId", 0)
-        
         api.getCartItems(userId = userId).enqueue(object : Callback<List<Produto>> {
             override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -65,17 +68,14 @@ class CartActivity : AppCompatActivity() {
                     setupAdapter()
                     updateTotal()
                 } else {
-                    // Lidar com a resposta não bem-sucedida, como logar o código de erro
                     Log.e("API Error", "Response not successful. Code: ${response.code()}, Message: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
-                // Logar a falha da chamada
                 Log.e("API Failure", "Error fetching products: ${t.message}")
             }
         })
-
     }
 
     private fun setupAdapter() {

@@ -9,8 +9,10 @@
         android:id="@+id/productImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/productNameTextView"
@@ -23,8 +25,8 @@
 
     <TextView
         android:id="@+id/productPriceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/productImageView"
         app:layout_constraintTop_toBottomOf="@+id/productNameTextView" />
 
@@ -32,6 +34,7 @@
         android:id="@+id/productQuantityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/productImageView"
         app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
 
